@@ -1857,4 +1857,79 @@ html,body{width:100%;min-height:100%;margin:0;overflow-x:hidden;-webkit-text-siz
 .fantasy-setup .bk-scene{display:none!important}
 .bk-title-img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 10%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 10%,#000 100%);mask-composite:intersect}
 </style>
+<style id="responsive-final">
+/* ===== RESPONSIVE FINAL: HP & laptop, potret & lanskap (tanpa putar paksa) ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:hidden}
+button,.hotspot,.mission,.action{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* 1. Sampul: tidak diputar lagi, selalu muat di layar */
+#coverBox{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:min(100vw,calc(100dvh*1.7778))!important;max-height:100dvh!important}
+@media (max-aspect-ratio:1/1){#coverBox{width:100vw!important}}
+
+/* 2. Layar soal: pakai tata letak potret bawaan, tidak diputar */
+@media (max-aspect-ratio:1/1){
+ :is(#veil,#mkeChallengeVeil) .qstage{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100vw!important;height:100dvh!important}
+}
+/* HP lanskap (layar pendek): panel soal memenuhi tinggi layar */
+@media (orientation:landscape) and (max-width:899px){
+ .qstage .qpanel{top:8px!important;bottom:54px!important;left:2vw!important;right:150px!important;padding:8px!important;gap:7px!important}
+ .qheadm{font-size:14px!important;padding:0!important}
+ .qq{min-height:0!important;font-size:15px!important;padding:8px 10px!important}
+ .qans{min-height:44px!important;padding:6px 10px!important}
+ .qans-grid{padding-bottom:10px!important;gap:6px!important}
+ .qtxt{font-size:13px!important}
+ .qchip{min-height:38px!important}
+}
+
+/* 3. Poster panduan: tidak diputar; ketuk untuk memperbesar */
+@media (max-aspect-ratio:1/1){
+ #rulesVeil .dialog{overflow-y:auto!important}
+ #rulesVeil .guide-poster{position:static!important;flex:none!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;height:auto!important;margin:auto 0!important;pointer-events:auto!important;cursor:zoom-in!important}
+ #rulesVeil .dialogbuttons{position:sticky!important;left:auto!important;right:auto!important;bottom:0!important;height:auto!important;flex:none;padding:10px 12px calc(14px + env(safe-area-inset-bottom))!important}
+ #rulesVeil .guide-poster.is-zoomed{position:fixed!important;left:50%!important;top:50%!important;inset:auto!important;left:50%!important;top:50%!important;width:96dvh!important;height:96vw!important;max-width:none!important;max-height:none!important;transform:translate(-50%,-50%) rotate(90deg)!important;object-fit:contain!important;cursor:zoom-out!important}
+}
+#rulesVeil .guide-poster{pointer-events:auto!important;cursor:zoom-in}
+
+/* 4. Peta permainan */
+.hotspot{width:clamp(30px,4vw,44px)!important;font-size:clamp(13px,1.6vw,19px)!important}
+.mapframe{margin-inline:auto}
+@media (max-width:650px),(max-aspect-ratio:1/1){
+ #app{padding:8px 8px calc(150px + env(safe-area-inset-bottom))!important}
+ .layout{display:flex!important;flex-direction:column!important;gap:10px!important}
+ .mapframe,.side{width:100%!important}
+ .maphint{font-size:10px!important;padding:4px 7px!important}
+}
+/* Tombol gerak melayang di bawah agar peta tetap terlihat */
+@media (max-width:900px),(pointer:coarse){
+ .side .controls{position:fixed!important;left:0;right:0;bottom:0;z-index:30;margin:0!important;padding:10px 14px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(#0a3a6600,#0a3a66d9 45%);pointer-events:none;align-items:end}
+ .side .controls>*{pointer-events:auto}
+ .dpad{grid-template-columns:54px 54px 54px!important;grid-template-rows:48px 48px!important;gap:5px!important}
+ .dpad button{font-size:20px!important;opacity:.94}
+ .action{padding:16px 20px!important;font-size:15px!important;min-width:128px}
+ #audioControls{bottom:calc(104px + env(safe-area-inset-bottom))!important;right:8px!important;width:150px!important;max-width:150px!important;padding:6px 8px!important}
+ #audioControls label[for=musicVolume],#audioControls>div:last-child{display:none!important}
+}
+/* HP lanskap: peta menyesuaikan tinggi layar */
+@media (orientation:landscape) and (max-height:520px){
+ #app{padding:6px 8px calc(8px + env(safe-area-inset-bottom))!important}
+ .header{margin-bottom:4px!important}
+ .brand small{display:none}
+ .layout{display:grid!important;grid-template-columns:minmax(0,1fr) 230px!important;flex-direction:row!important;gap:8px!important}
+ .mapframe{width:min(100%,calc((100dvh - 62px)*1.5))!important}
+ .side{max-height:calc(100dvh - 62px);overflow:auto}
+ .side .controls{background:none!important;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+ .dpad{grid-template-columns:46px 46px 46px!important;grid-template-rows:42px 42px!important}
+ .action{padding:12px 16px!important}
+ #audioControls{bottom:auto!important;top:6px!important}
+}
+
+/* 5. Dialog, form, sertifikat: selalu muat & bisa digulir */
+.veil{overflow-y:auto}
+.dialog,.ce-dialog{max-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#certificateVeil .dialog{overflow:auto}
+#certificate{max-width:100%}
+img,svg,canvas{max-width:100%}
+textarea,input,select{font-size:16px}
+</style>
 </body></html>
